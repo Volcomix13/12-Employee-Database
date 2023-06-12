@@ -11,6 +11,10 @@ const sequelize = new Sequelize(
     port: 3306
   }
 );
-
+sequelize.authenticate().then(()=>{
+  console.log("connection successful")
+}).catch((error)=>{
+  console.log(error);
+})
 module.exports = sequelize;
 

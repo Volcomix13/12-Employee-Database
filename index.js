@@ -1,41 +1,16 @@
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer");
-const fs = require("fs");
-const generateMarkdown = require("./utils/generateMarkdown");
+const db = require ("./config/connection");
 
 // TODO: Create an array of questions for user input
 const questions = [
     {
-        message: "View all departments? (Please answer yes or no)",
+        message: "Please choose from the options below",
         name: "departments",
         type: "list",
-        choices: ["Yes", "No"],
-    },
-
-    {
-        message: "View all roles? (Please answer yes or no)",
-        name: "roles",
-        type: "list",
-        choices: ["Yes", "No"],
-    },
-    {
-        message: "View all employees? (Please answer yes or no)",
-        name: "employees",
-        type: "list",
-        choices: ["Yes", "No"],
-    },
-    {
-        message: "Add a department",
-        name: "addDepartment"
-    },
-    {
-        message: "Add a role",
-        name: "addRole"
-    },
-    {
-        message: "Add an employee?",
-        name: "addEmployee"
-    },
+        choices: ["See all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee"],
+    }
+    
 ];
 
 
@@ -45,10 +20,25 @@ function init() {
     inquirer
         .prompt(questions)
         .then((response)=> {
+            if (response.departments === "See all departments"){
+                console.log("department")
+            }else if (response.departments === "View all roles"){
+                console.log("roles")
+                init()
 
-            console.log("got it!")
-            fs.writeFile("./README.md", generateMarkdown({...response}), (err)=>//grabs data from the top
-            err ? console.log(err) : console.log("Loading data"))
+            }else if (response.departments === "View all employees"){
+                console.log("employees")
+                viewAllEmployees()
+
+            }else if (response.departments === "Add a department"){
+
+            }else if (response.departments === "Add a role"){
+
+            }else if (response.departments === "Add an employee"){
+
+            }else {console.log("Please pick something else")};
+                
+                        
         })
         .catch((error)=>{
             console.log(error)
@@ -58,3 +48,12 @@ function init() {
 // Function call to initialize app
 init();
 
+
+function viewAllEmployees (){
+    const employeeQuerry= "select * from employee;";
+    db.query(employeeQuerry, (err, res)=>{
+        if (err) throw err;
+        console.table(res)
+        init()
+    })
+}

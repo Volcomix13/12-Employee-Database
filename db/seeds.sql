@@ -1,4 +1,4 @@
-INSERT INTO deparment (name)
+INSERT INTO department (name)
 VALUES  ("Accounting"),
         ("Human Resources"),
         ("OPS");
