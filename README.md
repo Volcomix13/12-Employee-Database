@@ -14,8 +14,7 @@
 Run the following commands in your terminal to install all the needed packages to run this app:
 1. npm -y
 2. Install inquirer (npm install inquirer@8.2.4)
-2. Install SQL (npm install mysql2)
-3. Install Sequelize (npm sequelize)
+3. Install SQL (npm install mysql2)
 
 Once all the packages are installed,
 Run the following command to start mySQL: mysql -u root -p and log in with your SQL credentials

@@ -1,6 +1,6 @@
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer");
-const db = require ("./config/connection");
+const db = require ("./db/index");
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -25,7 +25,6 @@ function init() {
             }else if (response.departments === "View all roles"){
                 viewAllRoles()
                 //console.log("roles")
-                init()
 
             }else if (response.departments === "View all employees"){
                 console.log("employees")
@@ -56,17 +55,14 @@ function viewAllDepartments(){
     db.query(departmentQuery,(err, res)=>{
     if (err) throw err;
     console.table(res)
-    init()
     })
 };
 
 //function to create table with all roles
 function viewAllRoles (){
-    const roleQuerry = "select * from roles;";
-    db.query(roleQuerry, (err, res)=>{
+    db.findAllRoles()(roleQuerry, (err, res)=>{
         if (err) throw err;
         console.table(res)
-        init()
     })
 };
 
@@ -76,7 +72,6 @@ function viewAllEmployees (){
     db.query(employeeQuerry, (err, res)=>{
         if (err) throw err;
         console.table(res)
-        init()
     })
 };
 
