@@ -8,7 +8,6 @@
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 - [License](#license)
 
 ## Installation
@@ -33,5 +32,6 @@ Select the option that best meets your needs from the drop down list
     
 
 Repo link: https://github.com/Volcomix13/12-Employee-Database
+
 ## License
 Please see repository for license info.

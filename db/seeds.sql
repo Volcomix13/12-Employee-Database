@@ -4,9 +4,9 @@ VALUES  ("Accounting"),
         ("OPS");
 
 INSERT INTO roles (title, salary, department_id)
-VALUES ("Manager", 98000, 1),
-       ("Team Lead", 60000, 2),
-       ("Associate", 35000,3);
+VALUES ("Manager", 98000.00, 1),
+       ("Team Lead", 60000.00, 2),
+       ("Associate", 35000.00,3);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Nam-joon", "Kim", 5, 1),

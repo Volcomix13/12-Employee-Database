@@ -23,7 +23,8 @@ function init() {
             if (response.departments === "See all departments"){
                 viewAllDepartments()
             }else if (response.departments === "View all roles"){
-                console.log("roles")
+                viewAllRoles()
+                //console.log("roles")
                 init()
 
             }else if (response.departments === "View all employees"){
@@ -56,6 +57,16 @@ function viewAllDepartments(){
     if (err) throw err;
     console.table(res)
     init()
+    })
+};
+
+//function to create table with all roles
+function viewAllRoles (){
+    const roleQuerry = "select * from roles;";
+    db.query(roleQuerry, (err, res)=>{
+        if (err) throw err;
+        console.table(res)
+        init()
     })
 };
 
