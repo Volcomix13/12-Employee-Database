@@ -21,7 +21,7 @@ function init() {
         .prompt(questions)
         .then((response)=> {
             if (response.departments === "See all departments"){
-                console.log("department")
+                viewAllDepartments()
             }else if (response.departments === "View all roles"){
                 console.log("roles")
                 init()
@@ -36,7 +36,7 @@ function init() {
 
             }else if (response.departments === "Add an employee"){
 
-            }else {console.log("Please pick something else")};
+            }else {console.log("Goodbye!")};
                 
                         
         })
@@ -49,11 +49,23 @@ function init() {
 init();
 
 
+//function to create table with all departments
+function viewAllDepartments(){
+    const departmentQuery = "select * from department;";
+    db.query(departmentQuery,(err, res)=>{
+    if (err) throw err;
+    console.table(res)
+    init()
+    })
+};
+
+//function to create table with all employees
 function viewAllEmployees (){
-    const employeeQuerry= "select * from employee;";
+    const employeeQuerry = "select * from employee;";
     db.query(employeeQuerry, (err, res)=>{
         if (err) throw err;
         console.table(res)
         init()
     })
-}
+};
+
