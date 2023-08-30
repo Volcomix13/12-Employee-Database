@@ -1,77 +1,90 @@
-// TODO: Include packages needed for this application
-const inquirer = require("inquirer");
-const db = require ("./db/index");
+const inquirer = require('inquirer')
+const connection = require('./db/connection')
+//const db = require('./db/indexUtilities')
+// const mysql = require ("mysql2");
 
-// TODO: Create an array of questions for user input
-const questions = [
-    {
-        message: "Please choose from the options below",
-        name: "departments",
-        type: "list",
-        choices: ["See all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee"],
-    }
-    
-];
+// // Connect to database
+// const  connection = mysql.createConnection(
+//     {
+//         host: "localhost",
+//         // MySQL username,
+//         user: "root",
+//         // TODO: Add MySQL password here
+//         password: "1234",
+//         database: "employeeTracker_db",
+//     },
+// );
+
+//connection.connect()
 
 
 
-// TODO: Create a function to initialize app
+init()
+
+
+
 function init() {
-    inquirer
-        .prompt(questions)
-        .then((response)=> {
-            if (response.departments === "See all departments"){
-                viewAllDepartments()
-            }else if (response.departments === "View all roles"){
-                viewAllRoles()
-                //console.log("roles")
+    inquirer.prompt([
+        {
+            message: "Please choose from the options below",
+            name: "choices",
+            type: "list",
+            choices: ["See all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee"],
+        }])
+        .then(answer => {
+            console.log("okay", answer);
 
-            }else if (response.departments === "View all employees"){
-                console.log("employees")
+            // connection.connect(function(error){
+            //     if (error) throw error
+            // });
+
+            if (answer.choices === "See all departments") {
+                console.log("call function see all depart")
+                viewAllDepartments()
+            } else if (answer.choices === "View all roles") {
+                viewAllRoles()
+
+            } else if (answer.choices === "View all employees") {
                 viewAllEmployees()
 
-            }else if (response.departments === "Add a department"){
+            } else if (answer.choices === "Add a department") {
+                //addADepartment()
 
-            }else if (response.departments === "Add a role"){
+            } else if (answer.choices === "Add a role") {
 
-            }else if (response.departments === "Add an employee"){
+            } else if (answer.choices === "Add an employee") {
 
-            }else {console.log("Goodbye!")};
-                
-                        
-        })
-        .catch((error)=>{
-            console.log(error)
+            } else { console.log("Goodbye!") };
         })
 }
 
-// Function call to initialize app
-init();
+//init()
 
-
-//function to create table with all departments
-function viewAllDepartments(){
+function viewAllDepartments() {
     const departmentQuery = "select * from department;";
-    db.query(departmentQuery,(err, res)=>{
-    if (err) throw err;
-    console.table(res)
+    connection.query(departmentQuery, (err, res) => {
+        if (err) throw err;
+        console.table(res)
+        init();
     })
 };
 
 //function to create table with all roles
-function viewAllRoles (){
-    db.findAllRoles()(roleQuerry, (err, res)=>{
+function viewAllRoles() {
+    const roleQuery = "select * from roles;"
+    connection.query(roleQuery, (err, res) => {
         if (err) throw err;
         console.table(res)
+        init();
     })
 };
 
 //function to create table with all employees
-function viewAllEmployees (){
+function viewAllEmployees() {
     const employeeQuerry = "select * from employee;";
-    db.query(employeeQuerry, (err, res)=>{
+    connection.query(employeeQuerry, (err, res) => {
         if (err) throw err;
         console.table(res)
+        init();
     })
 };
-
