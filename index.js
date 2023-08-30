@@ -1,5 +1,6 @@
 const inquirer = require('inquirer')
 const connection = require('./db/connection')
+
 //const db = require('./db/indexUtilities')
 // const mysql = require ("mysql2");
 
@@ -48,11 +49,13 @@ function init() {
                 viewAllEmployees()
 
             } else if (answer.choices === "Add a department") {
-                //addADepartment()
+                addDepartment()
 
             } else if (answer.choices === "Add a role") {
+                addRole()
 
             } else if (answer.choices === "Add an employee") {
+                //addEmployee()
 
             } else { console.log("Goodbye!") };
         })
@@ -88,3 +91,48 @@ function viewAllEmployees() {
         init();
     })
 };
+
+//function to add department
+function addDepartment() {
+    inquirer.prompt({
+        type: "input",
+        message:"Please add the name of the department to add",
+        name:"addDept"
+    }).then(function(answer){
+
+        connection.query("INSERT INTO department (name) VALUES(?)", [answer.addDept], (err, res) => {
+        if (err) throw err;
+        console.table(res)
+        init();
+        })
+    });
+}
+
+//function to add department
+function addRole() {
+    inquirer.prompt([
+    {
+        type: "input",
+        message:"Please add the name of the role to add",
+        name:"title"
+    },
+    {
+        type: "input",
+        message:"Please enter a salary",
+        name:"salary"
+    },
+    {
+        type: "input",
+        message:"Please add the name of the department",
+        name:"deptartment_id"
+    }
+])
+    .then(function(answer){
+
+        connection.query("INSERT INTO roles (title, salary, department_id) VALUES(?, ?, ?)", [answer.title, answer.salary, answer.department_id], (err, res) => {
+        if (err) throw err;
+        console.table(res)
+        init();
+        })
+    });
+}
