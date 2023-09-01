@@ -124,12 +124,12 @@ function addRole() {
     {
         type: "input",
         message:"Please add the name of the department",
-        name:"deptartment_id"
+        name:"deptartmentId"
     }
 ])
     .then(function(answer){
 
-        connection.query("INSERT INTO roles (title, salary, department_id) VALUES(?, ?, ?)", [answer.title, answer.salary, answer.department_id], (err, res) => {
+        connection.query("INSERT INTO roles (title, salary, departmentId) VALUES(?, ?, ?)", [answer.title, answer.salary, answer.departmentId], (err, res) => {
         if (err) throw err;
         console.table(res)
         init();
