@@ -28,6 +28,7 @@ Select the option that best meets your needs from the drop down list
 
     
 ![AppImage](./assets/AppImage.png)
+![AppImage](./assets/AppImage2.png)
     
 
 Repo link: https://github.com/Volcomix13/12-Employee-Database

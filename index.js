@@ -55,7 +55,7 @@ function init() {
                 addRole()
 
             } else if (answer.choices === "Add an employee") {
-                //addEmployee()
+                addEmployee()
 
             } else { console.log("Goodbye!") };
         })
@@ -108,7 +108,7 @@ function addDepartment() {
     });
 }
 
-//function to add department
+//function to add role
 function addRole() {
     inquirer.prompt([
     {
@@ -134,5 +134,40 @@ function addRole() {
         console.table(res)
         init();
         })
+    });
+}
+//function to add employee
+function addEmployee() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Please enter the employee's first name",
+            name: "firstName"
+        },
+        {
+            type: "input",
+            message: "Please enter the employee's last name",
+            name: "lastName"
+        },
+        {
+            type: "input",
+            message: "Please enter the employee's role ID",
+            name: "roleId"
+        },
+        {
+            type: "input",
+            message: "Please enter the employee's manager ID (if applicable)",
+            name: "managerId"
+        }
+    ]).then(function (answer) {
+        connection.query(
+            "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
+            [answer.firstName, answer.lastName, answer.roleId, answer.managerId],
+            (err, res) => {
+                if (err) throw err;
+                console.table(res);
+                init();
+            }
+        );
     });
 }
